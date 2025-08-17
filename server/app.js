@@ -23,6 +23,11 @@ const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/users', userRoutes);
-
-// Export the app
+const reminderRoutes = require('./routes/reminderRoutes');
+app.use('/api/reminders', reminderRoutes);
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 module.exports = app;
+const errorHandler = require('./middleware/errorHandler');
+app.use(errorHandler);
+
