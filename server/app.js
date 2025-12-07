@@ -30,4 +30,9 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 module.exports = app;
 const errorHandler = require('./middleware/errorHandler');
 app.use(errorHandler);
+const questionRoutes = require('./routes/questionRoutes');
+const answerRoutes = require('./routes/answerRoutes');
+
+app.use('/api/questions', questionRoutes);
+app.use('/api/questions/:questionId/answers', answerRoutes);
 

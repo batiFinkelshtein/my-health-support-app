@@ -95,13 +95,12 @@ const updateReminder = async (req, res) => {
   }
 };
 
-// מחיקה
+
 const deleteReminder = async (req, res) => {
   try {
     const reminder = await Reminder.findOneAndDelete({ _id: req.params.id, user: req.user._id });
     if (!reminder) return res.status(404).json({ message: 'Reminder not found' });
 
-    // אופציונלי: למחוק גם את הקובץ מהדיסק
     if (reminder.imageUrl && reminder.imageUrl.startsWith('/uploads/')) {
       const p = path.join(__dirname, '..', reminder.imageUrl);
       fs.promises.unlink(p).catch(() => {});
