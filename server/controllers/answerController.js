@@ -25,5 +25,16 @@ const getAnswersByQuestion = async (req, res) => {
     res.status(500).json({ message: 'Error fetching answers' });
   }
 };
+const deleteAnswer = async (req, res) => {
+  try {
+    const answer = await Answer.findByIdAndDelete(req.params.answerId);
+    if (!answer) {
+      return res.status(404).json({ message: 'Answer not found' });
+    }
+    res.json({ message: 'Answer deleted' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting answer' });
+  }
+};
 
-module.exports = { createAnswer, getAnswersByQuestion };
+module.exports = { createAnswer, getAnswersByQuestion , deleteAnswer };
